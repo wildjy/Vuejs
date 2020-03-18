@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" >
+	<head>
+		<title> : Vue : </title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+    <!--
+      Vue -
+      1. 모든 화면구성
+      2. 바뀌는 부분 data로 구성하고 data를 컨트롤 하면서 화면을 구성한다.
+
+      * v-bind: === attr() 과 흡사
+      * v-if="""
+      * v-else //v-if 와 인접해야함
+      * v-for=""
+      * v-on:메소드명=""
+      * v-model="" // 양방향 binding form, input 매우 유용
+      * ref="choice" // 선택자 this.$refs.choice.focus(); //남용은 안좋다. 어쩔수 없을 때..
+
+      ****
+      컴포넌트는 인스턴스보다 위에
+      스크립트는 div#root 밑에
+      ****
+    -->
+
+    <div id="root">
+      <word-relay></word-relay>
+      <word-relay></word-relay>
+      <word-relay></word-relay>
+    </div>
+  </body>
+  <script>
+    Vue.component('word-relay', { //전역(글로벌)컴포넌트는 template 는 하나의 부모태그로 감싸야한다. 대신 > template
+      template : `
+        <div>
+          <div>{{ word }}</div>
+            <form action="" v-on:submit="onChangWord">
+              <input type="text" ref="answer" v-model="value" />
+              <button type="submit">입력!</button>
+            </form>
+          <div>{{ result }}</div>
+        </div>
+      `,
+      data() {
+        return {
+          word : '와일드캣',
+          result : '',
+          value : '',
+        }
+      },
+      methods : {
+        onChangWord(e){
+          e.preventDefault();
+          var last = this.word;
+          var first = this.value;
+          console.log(this.word[this.word.length - 1])
+          //if(last.charAt(last.length - 1) === first.substring(0, 1)){
+          if(this.word[this.word.length - 1] === this.value[0]){
+            console.log(this.value[0])
+            this.result = "정답";
+            this.word = this.value;
+            this.value = '';
+            this.$refs.answer.focus();
+          } else {
+            this.result = "오답";
+            this.value = '';
+            this.$refs.answer.focus();
+          }
+        }
+      }
+    })
+
+  </script>
+  <script>
+    const app = new Vue({
+			el : '#root',
+    })
+  </script>
+</html>

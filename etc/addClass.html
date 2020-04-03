@@ -32,29 +32,39 @@
       ****
     -->
     <div id="root">
-      <div class="target" @click="addClass()" :class="{ on : isActive, active : hasActive }">addClass 해보기</div>
+      <div class="target" @click="addClass()" :class="{ on : isActive, 'class-active' : hasActive }"><span v-if='obj'>{{ foo }}</span> Class 해보기</div>
     </div>
   </body>
   <script>
+    //Object.freeze(obj);
+
     var app = new Vue({
 			el : '#root',
 			data : { //만들어야 할 화면의 바뀌는 부분을 data라 생각하고 구조를 생각하면 됨.
         isActive : false,
         hasActive : false,
+        foo : 'null',
+        obj : true,
 			},
 			methods : {
-        addClass(){
+        addClass(){ // @click 매소드 연결
           if(this.isActive === true){
-            console.log("removeClass");
-            this.isActive = false
-            this.hasActive = false
+            this.isActive = false;
+            this.hasActive = false;
+            this.foo = 'remove';
           } else {
-            console.log("addClass");
-            this.isActive = true
-            this.hasActive = true
+            this.isActive = true;
+            this.hasActive = true;
+            this.obj = true;
+            this.foo = 'add';
           }
         }
 			},
     })
   </script>
+  <style>
+    .target{width:150px;height:35px;font-size:14px;color:#222;text-align:center;line-height:35px;border:1px solid #222;background-color: #fff; cursor:pointer;}
+    .target.on{color:red;border:1px solid red;}
+    .target.class-active{background-color: #eee;}
+  </style>
 </html>

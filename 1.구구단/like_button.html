@@ -9,13 +9,27 @@
 	</head>
 	<body>
     <!--
-      * v-bind: === attr() 과 흡사
-      * v-if=""
+      Vue -
+      1. 모든 화면구성
+      2. 바뀌는 부분 data로 구성하고 data를 컨트롤 하면서 화면을 구성한다.
+
+      * v-text="" data에서 text 불러옴
+      * v-once {{ 변수명 }} 처리 - 처음바인딩된 값 유지
+      * v-html="" data에 작성된 마크업 호출
+      * v-bind: === attr() 과 흡사 축약형 - :href
+      * v-on:메소드명=""  축약형 - @click="XX", === onclick='' onfocus=''와 비슷하게 click, mouseover등의 이벤트 전달
+      * v-model="" // 양방향 binding form, input 매우 유용
+      * v-if="""
       * v-else //v-if 와 인접해야함
       * v-for=""
-      * v-on:메소드명=""
-      * v-model="" // 양방향 binding form, input 매우 유용
       * ref="choice" // 선택자 this.$refs.choice.focus(); //남용은 안좋다. 어쩔수 없을 때..
+
+      ****
+      html - kebab-case
+      javascript - camalCase - vue가 알아서 camalCase로 처리해줌
+      컴포넌트는 인스턴스보다 위에
+      스크립트는 div#root 밑에
+      ****
     -->
     <div class="root">
       <div v-if="liked">좋아요 눌렀음</div><!-- v-if 와 v-else는 인접해야함! -->
@@ -28,7 +42,7 @@
     </div>
 
     <div id="v-bind" v-on:click="onChangeColor">
-      <p v-bind:id="attr">v-bind:를 알아봅시다.</p>
+      <p v-bind:class="attr">v-bind:를 알아봅시다.</p>
     </div>
   </body>
   <script>
@@ -56,9 +70,15 @@
       data : { //만들어야 할 화면의 바뀌는 부분을 data라 생각하고 구조를 생각하면 됨.
         attr : 'id_attr',
         color : 'red',
+        selected : null,
       },
       methods : {
+        add : function(active){
+          this.selected = active;
+        }
         onChangeColor(){
+          console.log(this)
+
           //this.style = color;
         }
       }

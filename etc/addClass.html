@@ -32,7 +32,9 @@
       ****
     -->
     <div id="root">
-      <div class="target" @click="addClass()" :class="{ on : isActive, 'class-active' : hasActive }"><span v-if='obj'>{{ foo }}</span> Class 해보기</div>
+      <button type="button" class="target" @click="addClass()" :class="{ on : isActive, 'class-active' : hasActive }">
+        <span v-if='obj'>현재 class : {{ foo }}됨,  {{ isActive ? 'remove' : 'add' }}</span> Class 해보기
+      </div>
     </div>
   </body>
   <script>
@@ -63,7 +65,7 @@
     })
   </script>
   <style>
-    .target{width:150px;height:35px;font-size:14px;color:#222;text-align:center;line-height:35px;border:1px solid #222;background-color: #fff; cursor:pointer;}
+    .target{display:inline-block;padding:0 15px; height:35px;font-size:14px;color:#222;text-align:center;line-height:35px;border:1px solid #222;background-color: #fff; cursor:pointer;}
     .target.on{color:red;border:1px solid red;}
     .target.class-active{background-color: #eee;}
   </style>
